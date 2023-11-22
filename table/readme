@@ -1,0 +1,4 @@
+PhpMyAdmin >> Create New Database..
+>> Database Name = 'evergreen'
+>> leave the Database empty
+>> run the createDatabase.php file Once in Htdocs or Php Server
