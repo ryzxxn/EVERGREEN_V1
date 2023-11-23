@@ -69,6 +69,9 @@
                                 $sqlDeleteProduct = "DELETE FROM products WHERE product_id = {$product['product_id']}";
                                 $conn->query($sqlDeleteProduct);
                             }
+
+                            // Add the product_id to the orders table as pid
+                            $pid = $product['product_id'];
                         } else {
                             echo '<div class="cart_container out_of_stock">';
                             echo '<p>' . $product['product_name'] . ' - Out of Stock</p>';
@@ -82,13 +85,14 @@
                 echo '<h3>Total Price: ₹' . $totalPrice . '</h3>';
                 echo '<form method="post">';
                 echo '<input type="hidden" name="totalPrice" value="' . $totalPrice . '">';
+                echo '<input type="hidden" name="pid" value="' . $pid . '">';
                 echo '<button class="product_button" type="submit" name="purchase">Purchase</button>';
                 echo '</form>';
 
                 // Handle the form submission for purchasing items in the cart
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
-                    // Insert order details into the orders table
-                    $sqlInsertOrder = "INSERT INTO orders (order_id, customer_id, pid, order_date, order_price) VALUES (UUID(),'$userId', '" . json_encode($cartContent) . "', NOW(), '$totalPrice')";
+                    // Insert order details into the orders table with UUID for order_id
+                    $sqlInsertOrder = "INSERT INTO orders (order_id, customer_id, pid, order_date, order_price) VALUES (UUID(), '$userId', '$pid', NOW(), '$totalPrice')";
                     $resultInsertOrder = $conn->query($sqlInsertOrder);
 
                     if ($resultInsertOrder) {

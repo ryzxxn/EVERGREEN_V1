@@ -73,7 +73,7 @@ $sqlProduct = "CREATE TABLE IF NOT EXISTS products (
 $sqlOrder = "CREATE TABLE IF NOT EXISTS orders (
     order_id CHAR(36) NOT NULL,
     customer_id CHAR(36) NOT NULL,
-    pid JSON,
+    pid INT,
     order_date DATE NOT NULL,
     order_price VARCHAR(255),
     PRIMARY KEY (order_id),
