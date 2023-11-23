@@ -40,6 +40,31 @@ $resultOrderCount = $conn->query($sqlOrderCount);
 $sqlGetOrders = "SELECT * FROM orders";
 $resultOrders = $conn->query($sqlGetOrders);
 
+// Fetch the most purchased product
+$sqlMostPurchasedProduct = "
+    SELECT pid, COUNT(pid) as purchaseCount
+    FROM data
+    GROUP BY pid
+    ORDER BY purchaseCount DESC
+    LIMIT 1";
+$resultMostPurchasedProduct = $conn->query($sqlMostPurchasedProduct);
+
+// Fetch the most purchased seller
+$sqlMostPurchasedSeller = "
+    SELECT seller_id, COUNT(seller_id) as purchaseCount
+    FROM data
+    GROUP BY seller_id
+    ORDER BY purchaseCount DESC
+    LIMIT 1";
+$resultMostPurchasedSeller = $conn->query($sqlMostPurchasedSeller);
+
+// Fetch other valuable information
+$sqlOtherInfo = "
+    SELECT seller_id, COUNT(DISTINCT customer_id) as uniqueCustomers
+    FROM data
+    GROUP BY seller_id";
+$resultOtherInfo = $conn->query($sqlOtherInfo);
+
 // Close the connection
 $conn->close();
 ?>
@@ -69,6 +94,10 @@ $conn->close();
     </style>
 </head>
 <body>
+
+<?php
+require '../Components/quickaccess.php';
+?>
 
 <h2>Admin Panel</h2>
 
@@ -174,6 +203,48 @@ $conn->close();
         echo "<p>Total Orders: $orderCount</p>";
     } else {
         echo "Error fetching order count.";
+    }
+    ?>
+</div>
+
+<!-- Display additional information -->
+<div>
+    <h3>Additional Information</h3>
+
+    <!-- Display most purchased product -->
+    <?php
+    if ($resultMostPurchasedProduct) {
+        $mostPurchasedProduct = $resultMostPurchasedProduct->fetch_assoc();
+        echo "<p>Most Purchased Product:</p>";
+        echo "<p>Product ID: {$mostPurchasedProduct['pid']}</p>";
+        echo "<p>Purchase Count: {$mostPurchasedProduct['purchaseCount']}</p>";
+    } else {
+        echo "Error fetching most purchased product.";
+    }
+    ?>
+
+    <!-- Display most purchased seller -->
+    <?php
+    if ($resultMostPurchasedSeller) {
+        $mostPurchasedSeller = $resultMostPurchasedSeller->fetch_assoc();
+        echo "<p>Most Purchased Seller:</p>";
+        echo "<p>Seller ID: {$mostPurchasedSeller['seller_id']}</p>";
+        echo "<p>Seller ID: {$mostPurchasedSeller['seller_first_name']} {$mostPurchasedSeller['seller_last_name']}</p>";
+        echo "<p>Purchase Count: {$mostPurchasedSeller['purchaseCount']}</p>";
+    } else {
+        echo "Error fetching most purchased seller.";
+    }
+    ?>
+
+    <!-- Display other valuable information -->
+    <?php
+    if ($resultOtherInfo) {
+        echo "<p>Unique Customers per Seller:</p>";
+        while ($row = $resultOtherInfo->fetch_assoc()) {
+            echo "<p>Seller ID: {$row['seller_id']}, Unique Customers: {$row['uniqueCustomers']}</p>";
+        }
+    } else {
+        echo "Error fetching other valuable information.";
     }
     ?>
 </div>
