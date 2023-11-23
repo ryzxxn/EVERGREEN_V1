@@ -121,8 +121,9 @@ $conn->close();
             echo "<div>";
             echo "<p>Product ID: {$row['product_id']}</p>";
             echo "<p>Product Name: {$row['product_name']}</p>";
-            echo "<p>Price: {$row['price']}</p>";
-            echo "<p>Description: {$row['description']}</p>";
+            echo "<p>Price: {$row['product_price']}</p>";
+            echo "<p>Description: {$row['product_description']}</p>";
+            echo "<p>Quantity: {$row['product_quantity']}</p>";
             // Add other product fields as needed
             echo "</div>";
             // echo "<button onclick='deleteProduct(\"{$row['product_id']}\")'>Delete Product</button>";

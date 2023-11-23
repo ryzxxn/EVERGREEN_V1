@@ -36,9 +36,9 @@ if ($result && $result->num_rows > 0) {
     foreach ($blogs as $blog) {
         echo '<div class="blog_item">';
         echo '<a href="blog_details.php?blog_id=' . $blog['blog_id'] . '">';
-        echo 'Title: ' . $blog['blog_title'];
+        echo $blog['blog_title'];
         echo '<br>';
-        echo 'Creator: ' . $blog['blogCreator_name'];
+        echo $blog['blogCreator_name'];
         echo '<br>';
         echo 'Likes: ' . $blog['blog_rating'];
         echo '</a>';

@@ -28,6 +28,15 @@ $sqlUsers = "CREATE TABLE IF NOT EXISTS users (
     UNIQUE (email)
 )";
 
+$sqlData = "CREATE TABLE IF NOT EXISTS data (
+    order_id VARCHAR(36),
+    customer_id VARCHAR(36),
+    seller_id INT,
+    product_id INT,
+    PRIMARY KEY (order_id)
+)
+";
+
 // SQL statement to create a blogs table with a foreign key constraint
 $sqlBlogs = "CREATE TABLE IF NOT EXISTS blogs (
     blog_id CHAR(36) NOT NULL,
@@ -80,7 +89,7 @@ $sqlCart = "CREATE TABLE IF NOT EXISTS carts (
 )";
 
 // Execute the SQL statements
-if ($conn->query($sqlUsers) === TRUE && $conn->query($sqlProduct) === TRUE && $conn->query($sqlOrder) === TRUE && $conn->query($sqlList) === TRUE && $conn->query($sqlBlogs) === TRUE && $conn->query($sqlCart) === TRUE){
+if ($conn->query($sqlData) === TRUE && $conn->query($sqlUsers) === TRUE && $conn->query($sqlProduct) === TRUE && $conn->query($sqlOrder) === TRUE && $conn->query($sqlList) === TRUE && $conn->query($sqlBlogs) === TRUE && $conn->query($sqlCart) === TRUE){
     echo "successfull";
 } else {
     echo "Error creating tables: " . $conn->error;
