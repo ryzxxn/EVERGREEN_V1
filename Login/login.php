@@ -19,10 +19,10 @@ error_reporting(0);
 $login_email = isset($_POST['email']) ? $_POST['email'] : '';
 $login_password = isset($_POST['password']) ? $_POST['password'] : '';
 
-echo "current user is " . $_SESSION["current_uuid"] . ".<br>";
-echo $login_email;
-echo "<br>";
-echo $login_password;
+// echo "current user is " . $_SESSION["current_uuid"] . ".<br>";
+// echo $login_email;
+// echo "<br>";
+// echo $login_password;
 
 // Call the auth function
 auth($login_email, $login_password);

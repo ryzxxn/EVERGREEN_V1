@@ -78,7 +78,7 @@ if (isset($_GET['pid'])) {
         $product = $resultProductDetails->fetch_assoc();
         ?>
         <div class="product_details">
-            <img src="<?php echo $product['product_url']; ?>" alt="Product Image"
+            <img class="product_img" src="<?php echo $product['product_url']; ?>" alt="Product Image"
                  style="max-width: 300px; max-height: 300px;">
             <div class="item_inner">
                 <h2><?php echo $product['product_name']; ?></h2>

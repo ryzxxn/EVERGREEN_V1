@@ -113,7 +113,9 @@
             echo 'Error retrieving cart.';
         }
     } else {
-        echo 'User not logged in.';
+        echo '<p class="error_warning">';
+            echo 'Please login to use the Cart';
+        echo '</p>';
     }
 
     // Close the database connection
